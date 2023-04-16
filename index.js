@@ -1,29 +1,30 @@
-// Global var declaration
+// global variable
 let count = 0;
 let timer;
 let quizData;
 let answers = [];
 
-// Calling DOM elements
+// DOM
 let startQuiz = document.querySelector("#startQuiz");
 let rulesContainer = document.querySelector("#rulesContainer");
 let alertContainer = document.querySelector("#alertContainer");
 let submitContainer = document.querySelector("#submitContainer");
-let quizContainer = document.querySelector("#quizContainer");
+let quizContainer = document.getElementById("quizContainer");
 let answersContainer = document.querySelector("#answersContainer");
 let displayResult = document.querySelector("#displayResult");
 
-// EventListener for Quiz Start btn
+// EventListener for quizStart
 startQuiz.addEventListener("click", () => {
   let countDown = document.querySelector("#countDownContainer");
   let counter = document.querySelector("#counter");
   let counterNum = 2;
   countDown.classList.remove("hidden");
   countDown.classList.add("flex");
+
   let x = setInterval(() => {
     if (counterNum < 0) {
-      coutDown.classList.remove("flex");
-      coutDown.classList.add("hidden");
+      countDown.classList.remove("flex");
+      countDown.classList.add("hidden");
       counterNum = 3;
       count = 0;
       timer = null;
@@ -42,41 +43,38 @@ startQuiz.addEventListener("click", () => {
   }, 1000);
 });
 
-// Fetching all quiz data from json
+// Data fetched from json
 const loadQuiz = async () => {
-  const res = await fetch("./data/quiz.json");
-  const data = await res.json;
+  const res = await fetch('data/quiz.json');
+  const data = await res.json();
   quizData = data;
   displayQuiz(data);
 };
 
-// Displaying quiz on quiz page
+// Displaying on quiz page
 const displayQuiz = (data) => {
-  // console.log(data);
   if (!data) {
     quizContainer.innerHTML = "";
     return;
   }
-  // console.log(data);
+
   data.forEach((quiz, i) => {
-    // console.log(quiz);
     quizContainer.innerHTML += `<div class="m-3 py-3 px-4 shadow-sm rounded">
-      <div class="flex items-center">
-        <div class="h-8 w-8 bg-green-300 rounded-full flex justify-center items-center text-green-800 mr-3">
-          ${i + 1}
-        </div>
-        <p class="text-gray-800 text-sm">${quiz.question}</p>
-      </div>
-      <div class="grid grid-cols-2 gap-4 mt-5">
-        ${displayQuizOptions(quiz.options, i)}
-      </div>
-    </div>`;
+  <div class="flex items-center">
+    <div class="h-8 w-8 bg-green-300 rounded-full flex justify-center items-center text-green-800 mr-3">
+      ${i + 1}
+    </div>
+    <p class="text-gray-800 text-sm">${quiz.question}</p>
+  </div>
+  <div class="grid grid-cols-2 gap-4 mt-5">
+    ${displayQuizOptions(quiz.options, i)}
+  </div>
+</div>`;
   });
 };
 
-// EventListener for quiz submit btn
-
-document.getElementById("submit").addEventListener("click", () => {
+// EventListener for quizSubmit
+document.querySelector("#submit").addEventListener("click", () => {
   if (answers.length < 6) {
     return;
   }
@@ -99,24 +97,21 @@ document.getElementById("submit").addEventListener("click", () => {
   }
 
   if (totalMark === 60) {
-    grade.status = "Excellent!";
+    grade.status = "Excellent";
     grade.color = "text-green-600";
   } else if (totalMark >= 40 && totalMark < 60) {
-    grade.status = "Good.";
+    grade.status = "Good";
     grade.color = "text-orange-600";
   } else {
-    grade.status = "Poor..";
+    grade.status = "Poor";
     grade.color = "text-red-600";
   }
 
-  // data setting on local storage and getting data from local storage
-  let storage = JSON.parse(localStorage.getItem("results"));
-  // console.log(storage);
+ // local storage
+  let storage = JSON.parse(localStorage.getItem('results'));
+
   if (storage) {
-    localStorage.setItem(
-      "results",
-      JSON.stringify([
-        ...storage,
+    localStorage.setItem('results',JSON.stringify([...storage,
         {
           marks: totalMark,
           examTime: timeTaken.innerText,
@@ -125,9 +120,7 @@ document.getElementById("submit").addEventListener("click", () => {
       ])
     );
   } else {
-    localStorage.setItem(
-      "results",
-      JSON.stringify([
+     localStorage.setItem('results', JSON.stringify([
         {
           marks: totalMark,
           examTime: timeTaken.innerText,
@@ -136,9 +129,10 @@ document.getElementById("submit").addEventListener("click", () => {
       ])
     );
   }
-
-  // Answer section / Right bar
+  console.log(storage);
+  // Right sidebar/ answer
   let x = setTimeout(() => {
+   
     showAnswers(answers);
     displayResult.innerHTML = `<div
     class="h-[220px] w-[220px] mx-auto mt-8 flex flex-col justify-center border-2 rounded-tr-[50%] rounded-bl-[50%]"
@@ -156,9 +150,9 @@ document.getElementById("submit").addEventListener("click", () => {
   </div>
   
   <button onclick="location.reload();" class="bg-green-600 text-white w-full py-2 rounded mt-16">Restart</button>
-  ${
-    storage
-      ? `<div class="mt-5">
+
+
+  ${answers ? `<div class="mt-5">
       <h1 class="text-center">Previous Submissions <button class="text-blue-800 text-xs" onclick={localStorage.clear();location.reload()}>Clear History</button></h1>
     <div
     class="flex justify-between items-center border rounded p-2 my-2 shadow-sm font-medium">
@@ -166,18 +160,12 @@ document.getElementById("submit").addEventListener("click", () => {
     <div>Grade</div>
     <div>Time</div>
     </div>
-    ${storage
-      ?.reverse()
-      ?.map(
-        (item) => `<div
-      class="flex justify-between items-center border rounded p-2 my-2 shadow-sm">
+    ${storage ?.reverse() ?.map((item) => 
+      `<div class="flex justify-between items-center border rounded p-2 my-2 shadow-sm">
       <div>${item.marks}/60</div>
       <div>${item.status}</div>
       <div>${item.examTime}</div>
-      </div>`
-      )
-      ?.join("")}`
-      : ""
+      </div>`) ?.join("")}` : ""
   }
   </div>
   `;

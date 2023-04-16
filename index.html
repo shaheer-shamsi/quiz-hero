@@ -20,9 +20,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./index.js" defer></script>
 
-    <!-- You don't need to change noChange.js file. It's fine -->
     <script src="./noChange.js" defer></script>
-    <!-- You don't need to change noChange.js file. It's fine -->
+
 
     <script>
       tailwind.config = {
@@ -37,7 +36,7 @@
     </script>
   </head>
   <body class="bg-white font-common">
-    <!-- Header/Navbar section -->
+    <!-- Header/Navbar -->
     <header class="h-16 flex items-center shadow-sm">
       <nav class="flex justify-between items-center w-9/12 mx-auto">
         <div class="text-zinc-800 font-bold uppercase">
@@ -49,13 +48,13 @@
         <button
           class="bg-green-600 font-light text-sm px-5 py-1 rounded text-white"
         >
-          <a href="blog.html" target="_blank">Blog</a>
+          Blog
         </button>
       </nav>
     </header>
-    <!-- Header/Navbar section -->
+    <!-- Header/Navbar -->
 
-    <!-- Landing page content -->
+    <!-- Landing page  -->
     <section
       class="lg:w-9/12 md:w-[90%] w-[95%] mx-auto text-center"
       id="rulesContainer"
@@ -99,9 +98,9 @@
         Start Quiz
       </button>
     </section>
-    <!-- Landing page content -->
-    
-    <!-- Top bar of question page -->
+    <!-- Landing page -->
+
+    <!-- Top bar of question  -->
     <section
       class="shadow-sm my-5 py-2 sticky top-0 bg-white z-10 hidden"
       id="alertContainer"
@@ -128,22 +127,22 @@
             <p class="text-xs -mt-1 text-gray-700">Time Consumed</p>
           </div>
         </div>
-        <!-- Timer -->
+        <!-- Timer  -->
       </div>
     </section>
-    <!-- Top bar of question page -->
+    <!-- Top bar of question -->
 
-    <!-- Quiz section -->
+    <!-- Quiz -->
     <section
       class="md:w-9/12 w-[90%] md:flex-row flex-col mx-auto hidden"
       id="submitContainer"
     >
-      <!-- Question section -->
+      <!-- Question -->
       <div class="md:w-[70%] w-full">
-        <div class="duration-500" id="quizContainer"></div>
+        <div class="duration-500" class="quizContainer" id="quizContainer"></div>
       </div>
-      <!-- Question section -->
-      <!-- Answer section -->
+      <!-- Question -->
+      <!-- Answer -->
       <div class="md:w-[30%] w-full shadow-sm">
         <div class="mx-2 text-center sticky top-20" id="displayResult">
           <div class="mb-8">
@@ -163,11 +162,11 @@
           </button>
         </div>
       </div>
-      <!-- Answer section -->
+      <!-- Answer -->
     </section>
-    <!-- Quiz section -->
+    <!-- Quiz -->
 
-    <!-- Countdown section -->
+    <!-- Countdown -->
     <div
       class="fixed top-0 left-0 bg-zinc-900 bg-opacity-90 w-full h-full justify-center items-center z-20 hidden"
       id="countDownContainer"
@@ -181,13 +180,12 @@
         </h1>
       </div>
     </div>
-    <!-- Countdown section -->
+    <!-- Countdown -->
 
-    <!-- Footer section -->
+    <!-- Footer -->
     <footer class="py-10 text-center text-sm">
       Copyright © 2023 Quiz Hero All Rights Reserved.
     </footer>
-    <!-- Footer section -->
+    <!-- Footer -->
   </body>
 </html>
-
